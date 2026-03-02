@@ -25,6 +25,17 @@ const pool = process.env.MYSQL_URL || process.env.MYSQLURL
         database: process.env.MYSQLDATABASE || process.env.MYSQL_DATABASE || process.env.DB_NAME || 'bakery_db'
     });
 
+// Test Connection at startup
+(async () => {
+    try {
+        const connection = await pool.getConnection();
+        console.log('✅ Connected to MySQL Database Successfully!');
+        connection.release();
+    } catch (err) {
+        console.error('❌ Database connection failed at startup:', err.message);
+    }
+})();
+
 // Helper to handle DB errors
 const tryQuery = async (query, params) => {
     try {
