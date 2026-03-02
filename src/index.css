@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 35 45% 96%;
+    --foreground: 25 35% 12%;
+
+    --card: 35 40% 99%;
+    --card-foreground: 25 35% 12%;
+
+    --popover: 35 40% 99%;
+    --popover-foreground: 25 35% 12%;
+
+    --primary: 25 55% 32%;
+    --primary-foreground: 35 50% 97%;
+
+    --secondary: 32 60% 90%;
+    --secondary-foreground: 25 45% 20%;
+
+    --muted: 33 25% 92%;
+    --muted-foreground: 25 12% 48%;
+
+    --accent: 28 75% 55%;
+    --accent-foreground: 35 50% 97%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 32 30% 87%;
+    --input: 32 30% 87%;
+    --ring: 25 55% 32%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 33 30% 95%;
+    --sidebar-foreground: 25 35% 18%;
+    --sidebar-primary: 25 55% 32%;
+    --sidebar-primary-foreground: 35 50% 97%;
+    --sidebar-accent: 32 40% 90%;
+    --sidebar-accent-foreground: 25 35% 18%;
+    --sidebar-border: 32 25% 85%;
+    --sidebar-ring: 25 55% 32%;
+
+    --warm-gold: 38 80% 58%;
+    --warm-cream: 38 60% 95%;
+    --warm-brown-light: 25 30% 75%;
+    --badge-pending: 45 90% 55%;
+    --badge-cooking: 25 80% 55%;
+    --badge-shipped: 210 70% 55%;
+    --badge-delivery: 280 60% 55%;
+    --badge-delivered: 140 60% 42%;
+  }
+
+  .dark {
+    --background: 25 30% 8%;
+    --foreground: 35 30% 92%;
+    --card: 25 25% 12%;
+    --card-foreground: 35 30% 92%;
+    --popover: 25 25% 12%;
+    --popover-foreground: 35 30% 92%;
+    --primary: 32 60% 60%;
+    --primary-foreground: 25 30% 8%;
+    --secondary: 25 20% 18%;
+    --secondary-foreground: 35 30% 92%;
+    --muted: 25 15% 18%;
+    --muted-foreground: 35 15% 60%;
+    --accent: 28 65% 50%;
+    --accent-foreground: 35 50% 97%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 25 15% 22%;
+    --input: 25 15% 22%;
+    --ring: 32 60% 60%;
+    --sidebar-background: 25 20% 10%;
+    --sidebar-foreground: 35 25% 85%;
+    --sidebar-primary: 32 60% 55%;
+    --sidebar-primary-foreground: 25 30% 8%;
+    --sidebar-accent: 25 15% 16%;
+    --sidebar-accent-foreground: 35 25% 85%;
+    --sidebar-border: 25 12% 20%;
+    --sidebar-ring: 32 60% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-sm border border-border/50 shadow-lg;
+  }
+}
