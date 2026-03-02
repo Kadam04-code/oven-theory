@@ -122,7 +122,7 @@ const ContactPage = () => {
                                     </div>
                                     <div>
                                         <h3 className="font-display text-xl font-bold mb-1">Our Bakery</h3>
-                                        <p className="text-muted-foreground font-body">Oven Theory, Unchgaon<br />Kolhapur, Maharashtra 416004</p>
+                                        <p className="text-muted-foreground font-body">Near Gram Panchayat, Unchgaon<br />Kolhapur, Maharashtra 416004</p>
                                     </div>
                                 </CardContent>
                             </Card>
