@@ -14,16 +14,26 @@ app.use(cors());
 app.use(express.json());
 
 // MySQL connection configuration (Railway + local compatible)
-// Prioritize MYSQL_URL or MYSQLURL which is Railway's standard for full connection strings
-const pool = process.env.MYSQL_URL || process.env.MYSQLURL
-    ? mysql.createPool(process.env.MYSQL_URL || process.env.MYSQLURL)
-    : mysql.createPool({
+const getPool = () => {
+    const url = process.env.MYSQL_URL || process.env.MYSQLURL;
+    if (url) {
+        console.log('📡 Using MYSQL_URL for database connection');
+        return mysql.createPool(url);
+    }
+
+    const dbConfig = {
         host: process.env.MYSQLHOST || process.env.MYSQL_HOST || process.env.DB_HOST || 'localhost',
         port: process.env.MYSQLPORT || process.env.MYSQL_PORT || 3306,
         user: process.env.MYSQLUSER || process.env.MYSQL_USER || process.env.DB_USER || 'root',
         password: process.env.MYSQLPASSWORD || process.env.MYSQL_PASSWORD || process.env.DB_PASSWORD || '',
         database: process.env.MYSQLDATABASE || process.env.MYSQL_DATABASE || process.env.DB_NAME || 'bakery_db'
-    });
+    };
+
+    console.log(`📡 Connecting via individual vars -> Host: ${dbConfig.host}, Port: ${dbConfig.port}, User: ${dbConfig.user}, DB: ${dbConfig.database}`);
+    return mysql.createPool(dbConfig);
+};
+
+const pool = getPool();
 
 // Test Connection at startup
 (async () => {
@@ -33,6 +43,7 @@ const pool = process.env.MYSQL_URL || process.env.MYSQLURL
         connection.release();
     } catch (err) {
         console.error('❌ Database connection failed at startup:', err.message);
+        console.error('💡 Tip: Check your Railway Variables and ensure MySQL service is Online.');
     }
 })();
 
