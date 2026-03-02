@@ -14,12 +14,13 @@ app.use(cors());
 app.use(express.json());
 
 // MySQL connection configuration (Railway + local compatible)
+// Supports both MYSQLHOST (Railway default) and MYSQL_HOST (Common convention)
 const dbConfig = {
-    host: process.env.MYSQL_HOST || process.env.DB_HOST || 'localhost',
-    port: process.env.MYSQL_PORT || 3306,
-    user: process.env.MYSQL_USER || process.env.DB_USER || 'root',
-    password: process.env.MYSQL_PASSWORD || process.env.DB_PASSWORD || '',
-    database: process.env.MYSQL_DATABASE || process.env.DB_NAME || 'bakery_db'
+    host: process.env.MYSQLHOST || process.env.MYSQL_HOST || process.env.DB_HOST || 'localhost',
+    port: process.env.MYSQLPORT || process.env.MYSQL_PORT || 3306,
+    user: process.env.MYSQLUSER || process.env.MYSQL_USER || process.env.DB_USER || 'root',
+    password: process.env.MYSQLPASSWORD || process.env.MYSQL_PASSWORD || process.env.DB_PASSWORD || '',
+    database: process.env.MYSQLDATABASE || process.env.MYSQL_DATABASE || process.env.DB_NAME || 'bakery_db'
 };
 
 const pool = mysql.createPool(dbConfig);
