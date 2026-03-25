@@ -1,7 +1,8 @@
 import { Order } from '@/data/store';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, Mail } from 'lucide-react';
+import { CheckCircle, Mail, FileDown } from 'lucide-react';
+import { generateInvoicePDF } from '@/lib/pdf';
 
 type Props = {
   order: Order;
@@ -41,7 +42,12 @@ const OrderConfirmationModal = ({ order, onClose }: Props) => {
               </div>
             </div>
           </div>
-          <Button onClick={onClose} className="w-full">Continue Shopping</Button>
+          <div className="flex gap-2">
+            <Button variant="outline" className="flex-1 gap-2" onClick={() => generateInvoicePDF(order)}>
+              <FileDown className="h-4 w-4" /> Download Bill
+            </Button>
+            <Button onClick={onClose} className="flex-1">Continue Shopping</Button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

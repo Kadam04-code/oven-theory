@@ -10,7 +10,7 @@ export type Product = {
   id: string;
   name: string;
   price: number;
-  category: 'Breads' | 'Pastries' | 'Cakes' | 'Cookies';
+  category: string;
   image_url: string;
 };
 

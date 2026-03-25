@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAppContext } from '@/contexts/AppContext';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { ShoppingBag, Package } from 'lucide-react';
 import { api } from '@/lib/api';
 
@@ -127,7 +127,12 @@ const MyOrdersPage = () => {
                 <p className="text-xs text-muted-foreground">Txn ID: <span className="font-medium text-foreground">{(order as any).transaction_id}</span></p>
               )}
             </div>
-            <p className="mt-2 text-xs text-muted-foreground">📍 {order.customer_address}</p>
+            <p className="mt-2 mb-3 text-xs text-muted-foreground">📍 {order.customer_address}</p>
+            <Link to={`/admin/invoice/${order.id}`}>
+              <Button variant="outline" size="sm" className="w-full gap-1.5 hover:bg-accent hover:text-accent-foreground transition-all">
+                <Package className="h-4 w-4" /> View / Download Bill
+              </Button>
+            </Link>
           </div>
         ))}
       </div>

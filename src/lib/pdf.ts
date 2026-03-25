@@ -21,7 +21,7 @@ export const generateInvoicePDF = (order: OrderForPDF) => {
 
   doc.setFontSize(22);
   doc.setFont('helvetica', 'bold');
-  doc.text('Golden Crust Bakery', 20, 25);
+  doc.text('Oven Theory', 20, 25);
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.text('INVOICE', 20, 33);
@@ -52,8 +52,8 @@ export const generateInvoicePDF = (order: OrderForPDF) => {
     body: order.items.map(item => [
       item.name,
       item.quantity.toString(),
-      `₹${item.price.toFixed(2)}`,
-      `₹${(item.price * item.quantity).toFixed(2)}`,
+      `Rs. ${item.price.toFixed(2)}`,
+      `Rs. ${(item.price * item.quantity).toFixed(2)}`,
     ]),
     theme: 'striped',
     headStyles: { fillColor: [139, 90, 43] },
@@ -64,9 +64,9 @@ export const generateInvoicePDF = (order: OrderForPDF) => {
 
   doc.setFontSize(10);
   const totals = [
-    ['Subtotal', `₹${Number(order.subtotal).toFixed(2)}`],
-    ['GST (5%)', `₹${Number(order.gst).toFixed(2)}`],
-    ['Delivery Fee', `₹${Number(order.delivery_fee).toFixed(2)}`],
+    ['Subtotal', `Rs. ${Number(order.subtotal).toFixed(2)}`],
+    ['GST (5%)', `Rs. ${Number(order.gst).toFixed(2)}`],
+    ['Delivery Fee', `Rs. ${Number(order.delivery_fee).toFixed(2)}`],
   ];
   totals.forEach(([label, value], i) => {
     doc.text(label, 130, finalY + i * 7);
@@ -76,7 +76,7 @@ export const generateInvoicePDF = (order: OrderForPDF) => {
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(12);
   doc.text('Total', 130, finalY + 28);
-  doc.text(`₹${Number(order.total_price).toFixed(2)}`, 175, finalY + 28, { align: 'right' });
+  doc.text(`Rs. ${Number(order.total_price).toFixed(2)}`, 175, finalY + 28, { align: 'right' });
 
   doc.save(`invoice-${order.id.slice(0, 8)}.pdf`);
 };
@@ -90,15 +90,15 @@ export const generateDailyReportPDF = (orders: OrderForPDF[]) => {
 
   doc.setFontSize(22);
   doc.setFont('helvetica', 'bold');
-  doc.text('Golden Crust Bakery', 20, 25);
+  doc.text('Oven Theory', 20, 25);
   doc.setFontSize(12);
   doc.text('Daily Sales Report', 20, 33);
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 41);
   doc.text(`Total Orders: ${todayOrders.length}`, 20, 48);
-  doc.text(`Total Revenue: ₹${totalRevenue.toFixed(2)}`, 20, 55);
-  doc.text(`Total GST Collected: ₹${totalGST.toFixed(2)}`, 20, 62);
+  doc.text(`Total Revenue: Rs. ${totalRevenue.toFixed(2)}`, 20, 55);
+  doc.text(`Total GST Collected: Rs. ${totalGST.toFixed(2)}`, 20, 62);
 
   if (todayOrders.length > 0) {
     autoTable(doc, {
@@ -108,7 +108,7 @@ export const generateDailyReportPDF = (orders: OrderForPDF[]) => {
         o.id.slice(0, 8),
         o.customer_email,
         o.items.map(i => `${i.name} x${i.quantity}`).join(', '),
-        `₹${o.total_price.toFixed(2)}`,
+        `Rs. ${o.total_price.toFixed(2)}`,
         o.payment_method,
         o.transaction_id || '-',
         o.status,

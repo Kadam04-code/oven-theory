@@ -146,6 +146,21 @@ app.delete('/api/staff/:id', async (req, res) => {
     }
 });
 
+app.get('/api/orders/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const orders = await tryQuery('SELECT * FROM orders WHERE id = ?', [id]);
+        if (orders.length === 0) return res.status(404).json({ error: 'Order not found' });
+
+        const order = orders[0];
+        const items = await tryQuery('SELECT * FROM order_items WHERE order_id = ?', [id]);
+
+        res.json({ ...order, items });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 // Orders
 app.get('/api/orders', async (req, res) => {
     const { user_id } = req.query;

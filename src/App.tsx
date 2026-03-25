@@ -12,6 +12,7 @@ import CartPage from "./pages/CartPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import MyOrdersPage from "./pages/MyOrdersPage";
 import ContactPage from "./pages/ContactPage";
+import InvoicePage from "./pages/InvoicePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/admin/invoice/:id" element={<InvoicePage />} />
                 <Route path="/my-orders" element={<MyOrdersPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="*" element={<NotFound />} />

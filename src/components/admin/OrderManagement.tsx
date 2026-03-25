@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { FileDown, ChevronRight } from 'lucide-react';
-import { generateInvoicePDF } from '@/lib/pdf';
+import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import { api } from '@/lib/api';
 
@@ -132,12 +132,11 @@ const OrderManagement = () => {
               )}
             </div>
 
-            <Button variant="outline" size="sm" className="mt-3 gap-1.5" onClick={() => generateInvoicePDF({
-              ...order,
-              items: (order.items || []).map(i => ({ productId: i.product_id || i.id, name: i.name, price: Number(i.price), quantity: i.quantity })),
-            })}>
-              <FileDown className="h-4 w-4" /> Generate Bill
-            </Button>
+            <Link to={`/admin/invoice/${order.id}`}>
+              <Button variant="outline" size="sm" className="mt-3 gap-1.5 hover:bg-accent hover:text-accent-foreground transition-all">
+                <FileDown className="h-4 w-4" /> View / Generate Bill
+              </Button>
+            </Link>
           </div>
         );
       })}

@@ -13,16 +13,23 @@ type Product = {
   image_url: string | null;
 };
 
-const categories = ['All', 'Breads', 'Pastries', 'Cakes', 'Cookies'] as const;
 
 const Index = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [dbCategories, setDbCategories] = useState<string[]>(['All']);
   const [activeCategory, setActiveCategory] = useState<string>('All');
 
   useEffect(() => {
     api.get('/products').then((data) => {
       if (data) setProducts(data);
     }).catch(err => console.error('Fetch products error:', err));
+
+    api.get('/categories').then((data) => {
+      if (data && data.length > 0) {
+        const names = data.map((c: any) => c.name);
+        setDbCategories(['All', ...names]);
+      }
+    }).catch(err => console.error('Fetch categories error:', err));
   }, []);
 
   const filtered = activeCategory === 'All' ? products : products.filter(p => p.category === activeCategory);
@@ -59,7 +66,7 @@ const Index = () => {
       <section id="products" className="container mx-auto px-4 py-12">
         <h2 className="mb-6 font-display text-3xl font-bold">Our Products</h2>
         <div className="mb-8 flex flex-wrap gap-2">
-          {categories.map(cat => (
+          {dbCategories.map(cat => (
             <Button
               key={cat}
               variant={activeCategory === cat ? 'default' : 'outline'}
